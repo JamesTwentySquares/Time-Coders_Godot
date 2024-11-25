@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://kd44ewmx5ws"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bn0y5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_itvkw"]
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00507, 0)
+mesh = SubResource("CapsuleMesh_bn0y5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_itvkw")
