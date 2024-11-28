@@ -10,6 +10,8 @@ func _input(event: InputEvent):
 		_character.run()
 	elif event.is_action_released("run"):
 		_character.walk()
+	elif event.is_action_pressed("jump"):
+		_character.jump()
 
 func _process(delta: float):
 	# Get input direction from user
