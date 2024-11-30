@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://g6chp8ity2ol"]
+
+[ext_resource type="PackedScene" uid="uid://c25jf0h74bfkr" path="res://Imported Assets/Assets/coin.gltf" id="1_1eupq"]
+[ext_resource type="Script" path="res://Scripts/collectable_item.gd" id="1_jfl8w"]
+[ext_resource type="Script" path="res://Scripts/coins script.gd" id="2_rqvd2"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qh6og"]
+height = 0.13998
+radius = 0.176871
+
+[node name="CollectableCoin" type="Node3D" groups=["\"coins"]]
+script = ExtResource("1_jfl8w")
+
+[node name="Area3D" type="Area3D" parent="." groups=["\"coins"]]
+script = ExtResource("2_rqvd2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" groups=["\"coins"]]
+shape = SubResource("CylinderShape3D_qh6og")
+
+[node name="coin2" parent="Area3D" groups=["\"coins"] instance=ExtResource("1_1eupq")]
+
+[connection signal="collected" from="." to="." method="_on_collected"]

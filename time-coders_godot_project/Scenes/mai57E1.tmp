@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://cjtp7kfgppnyd"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_mpsf3"]
+[ext_resource type="PackedScene" uid="uid://kd44ewmx5ws" path="res://Scenes/character_body_3d.tscn" id="2_f3dxl"]
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="4_35dhc"]
+[ext_resource type="PackedScene" uid="uid://g6chp8ity2ol" path="res://Collectable_Coin.tscn" id="4_rjhvu"]
+[ext_resource type="PackedScene" uid="uid://x4rvlrmhuenq" path="res://Gate.tscn" id="5_khikd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4yhl3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e42qs"]
+albedo_color = Color(0.143416, 0.534609, 0.339824, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3lg1u"]
+material = SubResource("StandardMaterial3D_e42qs")
+size = Vector2(5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a2ivf"]
+size = Vector3(5, 0, 5)
+
+[node name="Main" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.00670197, 0.999978, 0, -0.999978, 0.00670197, 0, 3.08855, 0)
+shadow_enabled = true
+
+[node name="Player" type="Node" parent="." node_paths=PackedStringArray("_character", "_camera")]
+script = ExtResource("1_mpsf3")
+_character = NodePath("../CharacterBody3D")
+_camera = NodePath("../CharacterBody3D/SpringArm3D/Camera3D")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("2_f3dxl")]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75041, 0)
+shape = SubResource("BoxShape3D_4yhl3")
+spring_length = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/SpringArm3D"]
+h_offset = 1.0
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.98023e-08, 0)
+mesh = SubResource("PlaneMesh_3lg1u")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_a2ivf")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.23035, 0.503694, 0)
+use_collision = true
+size = Vector3(1, 3, 1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.23137, 0.503694, 0)
+use_collision = true
+size = Vector3(1, 5, 1)
+
+[node name="GameManager" type="Node3D" parent="."]
+script = ExtResource("4_35dhc")
+
+[node name="CollectableCoin" parent="." instance=ExtResource("4_rjhvu")]
+transform = Transform3D(1, 0, 0, 0, -0.0133165, 0.999911, 0, -0.999911, -0.0133165, -4.21016, 0.412748, 8.19058)
+
+[node name="Gate" parent="." instance=ExtResource("5_khikd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4831, 0, 8.01074)

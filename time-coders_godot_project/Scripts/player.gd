@@ -24,3 +24,7 @@ func _process(delta: float):
 
 	# Pass the calculated movement direction to the character body
 	_character.move(move_direction)
+
+
+func _on_collectable_collected(item_name: String, value: int) -> void:
+	pass # Replace with function body.

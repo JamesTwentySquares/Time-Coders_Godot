@@ -40,7 +40,6 @@ func jump():
 		
 func _apply_jump_velocity():
 		velocity.y = _jump_velocity
-	
 
 func _physics_process(delta: float):
 	if _direction:
@@ -50,7 +49,6 @@ func _physics_process(delta: float):
 	# Apply gravity if not on the floor
 	if not is_on_floor():
 		velocity.y -= _gravity * _mass * delta
-	
 
 	# Update movement velocity based on direction
 	if _direction:
