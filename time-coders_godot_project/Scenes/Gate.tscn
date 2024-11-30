@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://x4rvlrmhuenq"]
+
+[ext_resource type="PackedScene" uid="uid://cmxeqm6to50bd" path="res://Imported Assets/Assets/wall_gated.gltf" id="1_evfaq"]
+[ext_resource type="Script" path="res://Scenes/gate.gd" id="1_fxrld"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yo8l0"]
+size = Vector3(4.05408, 3.97421, 1.41673)
+
+[node name="Gate" type="Area3D"]
+script = ExtResource("1_fxrld")
+
+[node name="wall_gated2" parent="." instance=ExtResource("1_evfaq")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0449834, 2.01292, -0.0182577)
+shape = SubResource("BoxShape3D_yo8l0")

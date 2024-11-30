@@ -28,3 +28,11 @@ func _process(delta: float):
 
 func _on_collectable_collected(item_name: String, value: int) -> void:
 	pass # Replace with function body.
+
+
+func _on_game_manager_all_coins_collected() -> void:
+	pass # Replace with function body.
+
+
+func _on_game_manager_visibility_changed() -> void:
+	pass # Replace with function body.

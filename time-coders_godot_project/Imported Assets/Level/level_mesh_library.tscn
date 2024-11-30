@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://4l7y31c87b23"]
+
+[ext_resource type="PackedScene" uid="uid://cq4tws40xhtj8" path="res://Imported Assets/Assets/wall.gltf" id="1_sgwsw"]
+[ext_resource type="PackedScene" uid="uid://boxiuep5e6y08" path="res://Imported Assets/Assets/wall_window_open.gltf" id="2_xlbuw"]
+[ext_resource type="PackedScene" uid="uid://cywc6ap7wqjfr" path="res://Imported Assets/Assets/floor_dirt_large.gltf" id="3_ou754"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="wall2" parent="." instance=ExtResource("1_sgwsw")]
+
+[node name="wall_window_open2" parent="." instance=ExtResource("2_xlbuw")]
+
+[node name="floor_dirt_large2" parent="." instance=ExtResource("3_ou754")]

@@ -1,27 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjtp7kfgppnyd"]
+[gd_scene load_steps=10 format=3 uid="uid://cjtp7kfgppnyd"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_mpsf3"]
 [ext_resource type="PackedScene" uid="uid://kd44ewmx5ws" path="res://Scenes/character_body_3d.tscn" id="2_f3dxl"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="4_35dhc"]
-[ext_resource type="PackedScene" uid="uid://g6chp8ity2ol" path="res://Collectable_Coin.tscn" id="4_rjhvu"]
+[ext_resource type="PackedScene" uid="uid://g6chp8ity2ol" path="res://Scenes/Collectable_Coin.tscn" id="4_rjhvu"]
+[ext_resource type="PackedScene" uid="uid://btsb2mkk21uka" path="res://Scenes/level.tscn" id="5_vf3y8"]
+[ext_resource type="PackedScene" uid="uid://cmxeqm6to50bd" path="res://Imported Assets/Assets/wall_gated.gltf" id="6_1q3h0"]
+[ext_resource type="PackedScene" uid="uid://x4rvlrmhuenq" path="res://Scenes/Gate.tscn" id="7_j1rb2"]
+[ext_resource type="PackedScene" uid="uid://wlgybnareapi" path="res://Imported Assets/Assets/pillar.gltf" id="8_umef6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4yhl3"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e42qs"]
-albedo_color = Color(0.143416, 0.534609, 0.339824, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_3lg1u"]
-material = SubResource("StandardMaterial3D_e42qs")
-size = Vector2(5, 5)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_a2ivf"]
-size = Vector3(5, 0, 5)
-
 [node name="Main" type="Node3D"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.00670197, 0.999978, 0, -0.999978, 0.00670197, 0, 3.08855, 0)
-shadow_enabled = true
+[node name="GameManager" type="Node3D" parent="."]
+script = ExtResource("4_35dhc")
+total_coins = 3
+
+[node name="Gate" parent="." instance=ExtResource("7_j1rb2")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -4.44783, 4.03429, -101.961)
 
 [node name="Player" type="Node" parent="." node_paths=PackedStringArray("_character", "_camera")]
 script = ExtResource("1_mpsf3")
@@ -29,6 +26,12 @@ _character = NodePath("../CharacterBody3D")
 _camera = NodePath("../CharacterBody3D/SpringArm3D/Camera3D")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("2_f3dxl")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 4.07064, 0)
+_walking_speed = 5.0
+_running_speed = 8.0
+_acceleration = 6.0
+_deceleration = 30.0
+_rotation_speed = 10.0
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75041, 0)
@@ -36,31 +39,39 @@ shape = SubResource("BoxShape3D_4yhl3")
 spring_length = 5.0
 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D/SpringArm3D"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.994776, 4.52641)
 h_offset = 1.0
 
-[node name="Floor" type="StaticBody3D" parent="."]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+[node name="CollectableCoin5" parent="." instance=ExtResource("4_rjhvu")]
+transform = Transform3D(12, 0, 0, 0, -0.159798, 11.9989, 0, -11.9989, -0.159798, 44.6559, 11.2749, -59.794)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.98023e-08, 0)
-mesh = SubResource("PlaneMesh_3lg1u")
-skeleton = NodePath("../..")
+[node name="CollectableCoin6" parent="." instance=ExtResource("4_rjhvu")]
+transform = Transform3D(12, 0, 0, 0, -0.159798, 11.9989, 0, -11.9989, -0.159798, -78.3441, 11.2749, -48.794)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("BoxShape3D_a2ivf")
+[node name="CollectableCoin7" parent="." instance=ExtResource("4_rjhvu")]
+transform = Transform3D(3.10583, -11.59, -0.154353, 0, -0.159798, 11.9989, -11.5911, -3.10554, -0.0413588, -87.3441, 11.2749, -0.793999)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.23035, 0.503694, 0)
-use_collision = true
-size = Vector3(1, 3, 1)
+[node name="Level" parent="." instance=ExtResource("5_vf3y8")]
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.23137, 0.503694, 0)
-use_collision = true
-size = Vector3(1, 5, 1)
+[node name="wall_gated2" parent="." instance=ExtResource("6_1q3h0")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -3.90471, 3.91314, -101.145)
+visible = false
 
-[node name="GameManager" type="Node3D" parent="."]
-script = ExtResource("4_35dhc")
+[node name="pillar2" parent="." instance=ExtResource("8_umef6")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 4.86872, 4.09769, -101.651)
 
-[node name="CollectableCoin" parent="." instance=ExtResource("4_rjhvu")]
-transform = Transform3D(1, 0, 0, 0, -0.0133165, 0.999911, 0, -0.999911, -0.0133165, -4.21016, 0.412748, 8.19058)
+[node name="pillar3" parent="." instance=ExtResource("8_umef6")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -14.3136, 4.09769, -101.83)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="UI"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 25
+text = "Collect the coins to open the gate!"
+
+[connection signal="all_coins_collected" from="GameManager" to="Gate" method="_on_game_manager_all_coins_collected"]
+[connection signal="collected" from="CollectableCoin5" to="GameManager" method="_on_collectable_coin_5_collected"]
+[connection signal="collected" from="CollectableCoin6" to="GameManager" method="_on_collectable_coin_5_collected"]
+[connection signal="collected" from="CollectableCoin7" to="GameManager" method="_on_collectable_coin_5_collected"]
